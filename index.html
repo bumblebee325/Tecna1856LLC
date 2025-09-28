@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Business Name</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">Tecna1856 LLC</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="about.html">About (Coming Soon)</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="section hero">
+    <h1>Welcome to Tecna1856 LLC</h1>
+    <p>Safe, Efficient, and Reliable Electrical services.</p>
+  </section>
+
+  <!-- Projects Section -->
+<section id="projects" class="section projects">
+  <h2>Our Projects</h2>
+
+  <!-- Fancy Before/After Project -->
+  <div class="project-slider">
+    <h3>Project One</h3>
+    <div class="slider-container" id="slider1">
+      <div class="before-after-wrapper">
+        <img src="images/project1-before.jpg" alt="Before" class="before-img" />
+        <div class="after-img-wrapper">
+          <img src="images/project1-after.jpg" alt="After" class="after-img" />
+        </div>
+        <div class="slider-bar" id="sliderBar1"></div>
+      </div>
+    </div>
+    <p class="description">Slide left/right to compare before and after.</p>
+  </div>
+</section>
+ 
+
+  <!-- Project 1 -->
+<section id="projects" class="section projects">
+  <h2>Our Projects</h2>
+
+  <!-- Fancy Before/After Project -->
+  <div class="project-slider">
+    <h3>Project Two</h3>
+    <div class="slider-container" id="slider2">
+      <div class="before-after-wrapper">
+        <img src="images/project2-before.jpg" alt="Before" class="before-img" />
+        <div class="after-img-wrapper">
+          <img src="images/project2-after.jpg" alt="After" class="after-img" />
+        </div>
+        <div class="slider-bar" id="sliderBar2"></div>
+      </div>
+    </div>
+    <p class="description">Slide left/right to compare before and after.</p>
+  </div>
+</section>
+
+
+  <!-- Project 2 -->
+<section id="projects" class="section projects">
+  <h2>Our Projects</h2>
+
+  <!-- Fancy Before/After Project -->
+  <div class="project-slider">
+    <h3>Project Three</h3>
+    <div class="slider-container" id="slider3">
+      <div class="before-after-wrapper">
+        <img src="images/project3-before.jpg" alt="Before" class="before-img" />
+        <div class="after-img-wrapper">
+          <img src="images/project3-after.jpg" alt="After" class="after-img" />
+        </div>
+        <div class="slider-bar" id="sliderBar3"></div>
+      </div>
+    </div>
+    <p class="description">Slide left/right to compare before and after.</p>
+  </div>
+</section>
+
+
+
+  <!-- Contact Section -->
+  <section id="contact" class="section contact">
+    <h2>Contact Us</h2>
+    <form class="contact-form">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <P> Roberto C. Montalvo - (602) 400-6834</P>
+    <p> Tecna1856@gmail.com</p>
+    <P> ROC 341768</P>
+    <p> Licensed - Bonded - Insured </p>
+    <p>&copy; 2025 Tecna1856. All rights reserved.</p>
+  </footer>
+<script>
+function setupSlider(sliderId, barId) {
+  const container = document.getElementById(sliderId);
+  const bar = document.getElementById(barId);
+  const afterWrapper = container.querySelector('.after-img-wrapper');
+
+  let isDragging = false;
+
+  const updateSlider = (x) => {
+    const rect = container.getBoundingClientRect();
+    let offset = x - rect.left;
+    offset = Math.max(0, Math.min(offset, rect.width));
+    const percent = (offset / rect.width) * 100;
+    afterWrapper.style.width = percent + '%';
+    bar.style.left = percent + '%';
+  };
+
+  bar.addEventListener('mousedown', (e) => {
+    isDragging = true;
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      updateSlider(e.clientX);
+    }
+  });
+
+  // Touch support
+  bar.addEventListener('touchstart', () => isDragging = true);
+  window.addEventListener('touchend', () => isDragging = false);
+  window.addEventListener('touchmove', (e) => {
+    if (isDragging) {
+      updateSlider(e.touches[0].clientX);
+    }
+  });
+}
+
+// Initialize sliders
+setupSlider('slider1', 'sliderBar1');
+// Add more calls if you have more sliders, e.g.:
+// setupSlider('slider2', 'sliderBar2');
+</script>
+
+</body>
+</html>
