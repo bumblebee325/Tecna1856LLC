@@ -3,157 +3,425 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Business Name</title>
+  <title>Tecna1856</title>
   <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* ---- Base / Layout ---- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { font-family: 'Segoe UI', Arial, sans-serif; color: #fff; scroll-behavior: smooth; }
+    body { background-color: #06799c; }
+
+    /* ---- Navbar ---- */
+    .navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+      background-color: rgba(11, 48, 95, 0.9);
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .logo-img { height: 40px; width: auto; display: block; }
+    .nav-links { list-style: none; display: flex; gap: 1.5rem; }
+    .nav-links a { color: #fff; text-decoration: none; transition: color .3s ease; }
+    .nav-links a:hover { color: #a3d1ff; }
+
+    /* ---- Hero (raised) ---- */
+    .hero {
+      /* raise by removing extra top space; navbar is sticky so we avoid big padding */
+      min-height: calc(100vh - 72px); /* viewport minus approx navbar height */
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; padding: 32px 20px 64px;
+      background-image: url("images/Raw_after2.jpg");
+      background-size: cover; background-position: center; background-repeat: no-repeat;
+      color: #070707d8;
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0;
+      background: rgba(136,132,132,0.35); /* corrected syntax */
+    }
+    .hero > * { position: relative; z-index: 1; }
+    .hero-title { 
+      font-size: clamp(2rem, 5vw, 3.75rem); 
+      line-height: 1.1; 
+      letter-spacing: .5px; 
+      text-transform: uppercase;
+      transform: translateY(-450px);
+    }
+
+    
+
+    /* ---- Slideshow ---- */
+    .slideshow-container {
+      position: relative; max-width: 900px; margin: 60px auto;
+      background: #434645; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 4px 10px rgba(34,33,33,0.2);
+    }
+    .slide { display: none; text-align: center; padding: 40px; }
+    .slide img { max-width: 100%; height: auto; border-radius: 8px; }
+    .caption { margin-top: 15px; font-size: 18px; color: #0717a7; }
+    .prev, .next {
+      cursor: pointer; position: absolute; top: 50%; transform: translateY(-50%);
+      padding: 12px; color: #fff; font-weight: bold; font-size: 24px;
+      background-color: rgba(19,16,17,0.5); border-radius: 6px; user-select: none;
+    }
+    .prev { left: 12px; }
+    .next { right: 12px; }
+    .prev:hover, .next:hover { background-color: rgba(0,0,0,0.8); }
+    .dots { text-align: center; padding: 10px 0 30px; }
+    .dot {
+      cursor: pointer; height: 12px; width: 12px; margin: 0 5px;
+      background-color: #bbb; border-radius: 50%; display: inline-block;
+      transition: background-color .6s ease;
+    }
+    .dot.active, .dot:hover { background-color: #717171; }
+
+    /* ---- Cards grid ---- */
+    .mycontainer {
+      width: 100%; display: flex; justify-content: center; align-items: stretch;
+      gap: 20px; flex-wrap: wrap; box-sizing: border-box; padding: 40px 20px;
+    }
+    .card {
+      display: block; text-decoration: none; color: inherit;
+      flex: 0 1 22%; min-width: 260px; height: 250px; padding: 16px;
+      border-radius: 14px; background: #666;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+      transform: translateY(0); transition: transform 200ms ease, box-shadow 200ms ease; will-change: transform;
+    }
+    .card:hover, .card:focus-visible { transform: translateY(-6px); box-shadow: 0 30px 60px rgba(0,0,0,0.16); }
+    .card:active { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(0,0,0,0.14); }
+    .card:focus-visible { outline: 3px solid #111; outline-offset: 2px; }
+    .card h1 { font-size: 1.8rem; margin-bottom: 8px; }
+    .card p { font-size: 1.35rem; }
+    @media (max-width: 900px) { .card { flex-basis: 45%; } }
+    @media (max-width: 580px) { .card { flex-basis: 100%; } }
+
+    /* ---- Contact & Footer ---- */
+    .section { padding: 4rem 2rem; text-align: center; }
+    .contact-form {
+      max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 1rem;
+    }
+    .contact-form input, .contact-form textarea {
+      padding: 0.75rem; border: none; border-radius: 5px; font-size: 1rem;
+    }
+    .contact-form button {
+      padding: 0.75rem; border: none; border-radius: 5px; background-color: #1a2f4d; color: #fff;
+      font-size: 1rem; cursor: pointer; transition: background-color 0.3s ease;
+    }
+    .contact-form button:hover { background-color: #28476c; }
+    footer {
+      text-align: center; padding: 2rem; font-size: 0.95rem; background-color: rgba(11,26,45,0.8);
+    }
+  </style>
 </head>
+
 <body>
   <!-- Navigation -->
   <header>
     <nav class="navbar">
-      <div class="logo">Tecna1856 LLC</div>
+      <div class="logo">
+        <img src="images/tecnaAcDc.png" alt="Site Logo" class="logo-img">
+      </div>
       <ul class="nav-links">
         <li><a href="#home">Home</a></li>
-        <li><a href="#projects">Projects</a></li>
+        <li><a href="#services">Services</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="about.html">About (Coming Soon)</a></li>
+        <li><a href="#about">About</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero Section -->
-  <section id="home" class="section hero">
-    <h1>Welcome to Tecna1856 LLC</h1>
-    <p>Safe, Efficient, and Reliable Electrical services.</p>
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <h1 class="hero-title">WELCOME TO TECNA1856, LLC</h1>
   </section>
 
-  <!-- Projects Section -->
-<section id="projects" class="section projects">
-  <h2>Our Projects</h2>
-
-  <!-- Fancy Before/After Project -->
-  <div class="project-slider">
-    <h3>Project One</h3>
-    <div class="slider-container" id="slider1">
-      <div class="before-after-wrapper">
-        <img src="images/project1-before.jpg" alt="Before" class="before-img" />
-        <div class="after-img-wrapper">
-          <img src="images/project1-after.jpg" alt="After" class="after-img" />
-        </div>
-        <div class="slider-bar" id="sliderBar1"></div>
-      </div>
-    </div>
-    <p class="description">Slide left/right to compare before and after.</p>
-  </div>
-</section>
- 
-
-  <!-- Project 1 -->
-<section id="projects" class="section projects">
-  <h2>Our Projects</h2>
-
-  <!-- Fancy Before/After Project -->
-  <div class="project-slider">
-    <h3>Project Two</h3>
-    <div class="slider-container" id="slider2">
-      <div class="before-after-wrapper">
-        <img src="images/project2-before.jpg" alt="Before" class="before-img" />
-        <div class="after-img-wrapper">
-          <img src="images/project2-after.jpg" alt="After" class="after-img" />
-        </div>
-        <div class="slider-bar" id="sliderBar2"></div>
-      </div>
-    </div>
-    <p class="description">Slide left/right to compare before and after.</p>
+  <!-- About Section -->
+<section id="about" class="about-section">
+  <div class="about-box">
+    <h2>About Us</h2>
+    <p>
+      At TECNA1856, LLC, we take pride in delivering high-quality electrical services 
+      for residential clients. From panel upgrades and EV charger installations 
+      to full wiring projects and emergency repairs — we bring precision, safety, and 
+      craftsmanship to every project.
+    </p>
+    <p>
+      As a licensed, bonded, and insured electrical contractor, our mission is to provide 
+      clean, efficient, and reliable electrical solutions with a customer-first approach. 
+      We don't just complete jobs — we build trust and power your vision with excellence.
+    </p>
   </div>
 </section>
 
-
-  <!-- Project 2 -->
-<section id="projects" class="section projects">
-  <h2>Our Projects</h2>
-
-  <!-- Fancy Before/After Project -->
-  <div class="project-slider">
-    <h3>Project Three</h3>
-    <div class="slider-container" id="slider3">
-      <div class="before-after-wrapper">
-        <img src="images/project3-before.jpg" alt="Before" class="before-img" />
-        <div class="after-img-wrapper">
-          <img src="images/project3-after.jpg" alt="After" class="after-img" />
-        </div>
-        <div class="slider-bar" id="sliderBar3"></div>
-      </div>
+<!-- ======================= TRUST BADGES (place between About and Slideshow) ======================= -->
+<section id="trust" class="tb-section" aria-label="Trust badges">
+  <div class="tb-row">
+    <!-- AZ ROC -->
+    <div class="tb-badge fade-slide" data-delay="0" aria-label="Arizona ROC Certified">
+      <svg class="tb-icon" viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <linearGradient id="tb-metal-roc" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#cdd6e0"/>
+            <stop offset="50%" stop-color="#f5f7fa"/>
+            <stop offset="100%" stop-color="#b7c2cf"/>
+          </linearGradient>
+        </defs>
+        <path d="M60 8 L100 24 V58c0 28-17 44-40 54C37 102 20 86 20 58V24z"
+              fill="url(#tb-metal-roc)" stroke="#e7ecf3" stroke-width="2"/>
+        <text x="60" y="48" text-anchor="middle" font-size="16" font-weight="700" fill="#0b2a55">AZ ROC</text>
+        <text x="60" y="70" text-anchor="middle" font-size="12" fill="#0b2a55">341768</text>
+      </svg>
+      <p class="tb-label">Arizona ROC Certified<br><span>ROC 341768</span></p>
     </div>
-    <p class="description">Slide left/right to compare before and after.</p>
+
+    <!-- NEC / UL -->
+    <div class="tb-badge fade-slide" data-delay="120" aria-label="NEC and UL Safety Compliant">
+      <svg class="tb-icon" viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <linearGradient id="tb-metal-nec" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#cdd6e0"/>
+            <stop offset="50%" stop-color="#f5f7fa"/>
+            <stop offset="100%" stop-color="#b7c2cf"/>
+          </linearGradient>
+        </defs>
+        <circle cx="60" cy="60" r="46" fill="url(#tb-metal-nec)" stroke="#e7ecf3" stroke-width="2"/>
+        <text x="60" y="55" text-anchor="middle" font-size="24" font-weight="800" fill="#0b2a55">NEC</text>
+        <text x="60" y="78" text-anchor="middle" font-size="20" font-weight="700" fill="#0b2a55">UL</text>
+      </svg>
+      <p class="tb-label">NEC / UL Safety<br><span>Compliant</span></p>
+    </div>
+
+    <!-- 5-Star -->
+    <div class="tb-badge fade-slide" data-delay="240" aria-label="5-Star Rated">
+      <svg class="tb-icon" viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <linearGradient id="tb-metal-5star" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#cdd6e0"/>
+            <stop offset="50%" stop-color="#f5f7fa"/>
+            <stop offset="100%" stop-color="#b7c2cf"/>
+          </linearGradient>
+        </defs>
+        <rect x="14" y="20" width="92" height="80" rx="12" fill="url(#tb-metal-5star)" stroke="#e7ecf3" stroke-width="2"/>
+        <g transform="translate(10,8)" fill="#0b2a55">
+          <path d="M24 64l6.5 4.1-1.9-7.5 5.9-4.9-7.6-.6L24 48l-2.9 7.1-7.6.6 5.9 4.9-1.9 7.5z"/>
+          <path d="M49 64l6.5 4.1-1.9-7.5 5.9-4.9-7.6-.6L49 48l-2.9 7.1-7.6.6 5.9 4.9-1.9 7.5z"/>
+          <path d="M74 64l6.5 4.1-1.9-7.5 5.9-4.9-7.6-.6L74 48l-2.9 7.1-7.6.6 5.9 4.9-1.9 7.5z"/>
+          <path d="M99 64l6.5 4.1-1.9-7.5 5.9-4.9-7.6-.6L99 48l-2.9 7.1-7.6.6 5.9 4.9-1.9 7.5z"/>
+          <path d="M124 64l6.5 4.1-1.9-7.5 5.9-4.9-7.6-.6L124 48l-2.9 7.1-7.6.6 5.9 4.9-1.9 7.5z" transform="translate(-25,0)"/>
+        </g>
+      </svg>
+      <p class="tb-label">5-Star Rated<br><span>Client Satisfaction</span></p>
+    </div>
+
+    <!-- Bonded & Insured -->
+    <div class="tb-badge fade-slide" data-delay="360" aria-label="Bonded and Insured">
+      <svg class="tb-icon" viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <linearGradient id="tb-metal-bond" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#cdd6e0"/>
+            <stop offset="50%" stop-color="#f5f7fa"/>
+            <stop offset="100%" stop-color="#b7c2cf"/>
+          </linearGradient>
+        </defs>
+        <path d="M60 10c18 0 32 14 32 32v6h-12v-6c0-11-9-20-20-20s-20 9-20 20v6H28v-6C28 24 42 10 60 10z"
+              fill="url(#tb-metal-bond)" stroke="#e7ecf3" stroke-width="2"/>
+        <rect x="20" y="52" width="80" height="58" rx="10" fill="url(#tb-metal-bond)" stroke="#e7ecf3" stroke-width="2"/>
+        <path d="M44 82l10 10 22-22" fill="none" stroke="#0b2a55" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <p class="tb-label">Bonded &amp; Insured<br><span>Professional Coverage</span></p>
+    </div>
   </div>
 </section>
+<!-- ===================== /TRUST BADGES END ===================== -->
 
 
 
-  <!-- Contact Section -->
+  <!-- Slideshow -->
+  <div class="slideshow-container" id="projects">
+    <div class="slide"><img src="images/Raw_after1.jpg" alt="Project 1"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_after2.jpg" alt="Project 2"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_after3.jpg" alt="Project 3"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_random1.jpeg" alt="Project 4"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_randomproject2.jpeg" alt="Project 5"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_electricalpanelafter1.jpeg" alt="Project 6"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_electricalpanelafter2.JPG" alt="Project 7"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_randomprojectchandelier.jpg" alt="Project 8"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_randomproject4.JPG" alt="Project 9"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_randomproject5.jpeg" alt="Project 10"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_before1.jpg" alt="Project 11"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_chandelierrandom2.JPG" alt="Project 12"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_commercial1.JPG" alt="Project 13"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_commercial2.JPG" alt="Project 14"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_commercial3.JPG" alt="Project 15"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_grandmas.jpeg" alt="Project 16"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_maybeproject.jpeg" alt="Project 17"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_teslacharger.jpeg" alt="Project 18"><div class="caption"></div></div>
+    <div class="slide"><img src="images/Raw_randomproject3.jpeg" alt="Project 19"><div class="caption"></div></div>
+
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+
+  <div class="dots">
+    <!-- Make sure this count matches your slides (19 here) -->
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="currentSlide(4)"></span>
+    <span class="dot" onclick="currentSlide(5)"></span>
+    <span class="dot" onclick="currentSlide(6)"></span>
+    <span class="dot" onclick="currentSlide(7)"></span>
+    <span class="dot" onclick="currentSlide(8)"></span>
+    <span class="dot" onclick="currentSlide(9)"></span>
+    <span class="dot" onclick="currentSlide(10)"></span>
+    <span class="dot" onclick="currentSlide(11)"></span>
+    <span class="dot" onclick="currentSlide(12)"></span>
+    <span class="dot" onclick="currentSlide(13)"></span>
+    <span class="dot" onclick="currentSlide(14)"></span>
+    <span class="dot" onclick="currentSlide(15)"></span>
+    <span class="dot" onclick="currentSlide(16)"></span>
+    <span class="dot" onclick="currentSlide(17)"></span>
+    <span class="dot" onclick="currentSlide(18)"></span>
+    <span class="dot" onclick="currentSlide(19)"></span>
+  </div>
+
+  <!-- Services Cards -->
+  <div class="mycontainer" id="services">
+    <div class="card fade-card" href="#project-1" style="background-color:#414040;" aria-label="Open Panel Upgrades">
+      <h1>Panel Upgrades</h1>
+      <p>- Main Lug and Main Breaker Panels</p>
+      <p>- Fuse Box Upgrades</p>
+      <p>- 200 AMP Service Upgrades</p>
+      <p>- Sub-Panel Installation</p>
+    </div>
+
+    <div class="card fade-card" href="#project-2" style="background-color: #414040;" aria-label="Open Electrical Services">
+      <h1>Electrical Services</h1>
+      <p>- Full Service Layout & Design</p>
+      <p>- Wiring & Installations</p>
+      <p>- New Lighting Installation</p>
+    </div>
+
+    <div class="card fade-card" href="#project-3" style="background-color: #414040;" aria-label="Open Residential Service">
+      <h1>Residential Service</h1>
+      <p>- Wiring & Rewiring</p>
+      <p>- Outlet & Switch Install</p>
+      <p>- Circuit Breaker Install</p>
+      <p>- Home Automation</p>
+    </div>
+
+    <div class="card fade-card" href="#project-4" style="background-color: #414040;" aria-label="Open Emergency Repairs">
+      <h1>Emergency Repairs</h1>
+      <p>- Code Compliance</p>
+      <p>- Troubleshooting & Diagnostics</p>
+      <p>- Faulty Wiring Repair</p>
+      <p>- Surge Protection</p>
+    </div>
+  </div>
+
+  <!-- Contact -->
   <section id="contact" class="section contact">
     <h2>Contact Us</h2>
-    <form class="contact-form">
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+
+        <input type="hidden" name="access_key" value="91328ca9-b060-48c9-853f-4f8c31abc049">
+
+        <input type="text" name="name" placeholder="Enter your full name" required>
+        <input type="email" name="email" placeholder="Enter your email address" required>
+        <textarea name="message" placeholder="Tell us about your electrical project (Panel upgrade, EV charger, lighting, etc.)" required></textarea>
+        <input type="hidden" name="redirect" value="https://web3forms.com/success">
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none">
+        <button type="submit">Send Message</button>
+
+        </form>
   </section>
 
   <!-- Footer -->
   <footer>
-    <P> Roberto C. Montalvo - (602) 400-6834</P>
-    <p> Tecna1856@gmail.com</p>
-    <P> ROC 341768</P>
-    <p> Licensed - Bonded - Insured </p>
-    <p>&copy; 2025 Tecna1856. All rights reserved.</p>
+    <p style="font-size:22px">Roberto C. Montalvo — ROC 341768</p>
+    <p style="font-size:18px">(602) 400-6834</p>
+    <p style="font-size:18px;">Tecna1856@gmail.com</p>
+    <p style="font-size:18px">Licensed · Bonded · Insured</p>
+    <p style="font-size:18px">&copy; 2025 Tecna1856. All rights reserved.</p>
   </footer>
+
+  <!-- Scripts -->
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) { showSlides(slideIndex += n); }
+    function currentSlide(n) { showSlides(slideIndex = n); }
+
+    function showSlides(n) {
+      const slides = document.getElementsByClassName("slide");
+      const dots = document.getElementsByClassName("dot");
+      if (n > slides.length) { slideIndex = 1 }
+      if (n < 1) { slideIndex = slides.length }
+      for (let i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
+      for (let i = 0; i < dots.length; i++) { dots[i].className = dots[i].className.replace(" active", ""); }
+      slides[slideIndex-1].style.display = "block";
+      if (dots[slideIndex-1]) dots[slideIndex-1].className += " active";
+    }
+
+    // Auto-play (optional)
+    setInterval(() => { plusSlides(1); }, 5500);
+  </script>
+
+  <script>
+window.addEventListener("scroll", () => {
+  const about = document.querySelector(".about-section");
+  const rect = about.getBoundingClientRect();
+  if (rect.top < window.innerHeight - 100) {
+    about.classList.add("visible");
+  }
+});
+</script>
 <script>
-function setupSlider(sliderId, barId) {
-  const container = document.getElementById(sliderId);
-  const bar = document.getElementById(barId);
-  const afterWrapper = container.querySelector('.after-img-wrapper');
+  // Slide-in on scroll (IntersectionObserver)
+  (function(){
+    const items = document.querySelectorAll('.fade-slide');
+    if (!items.length) return;
 
-  let isDragging = false;
-
-  const updateSlider = (x) => {
-    const rect = container.getBoundingClientRect();
-    let offset = x - rect.left;
-    offset = Math.max(0, Math.min(offset, rect.width));
-    const percent = (offset / rect.width) * 100;
-    afterWrapper.style.width = percent + '%';
-    bar.style.left = percent + '%';
-  };
-
-  bar.addEventListener('mousedown', (e) => {
-    isDragging = true;
-  });
-
-  window.addEventListener('mouseup', () => {
-    isDragging = false;
-  });
-
-  window.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-      updateSlider(e.clientX);
+    if (!('IntersectionObserver' in window)) {
+      items.forEach(el => el.classList.add('in-view')); // fallback: show
+      return;
     }
-  });
 
-  // Touch support
-  bar.addEventListener('touchstart', () => isDragging = true);
-  window.addEventListener('touchend', () => isDragging = false);
-  window.addEventListener('touchmove', (e) => {
-    if (isDragging) {
-      updateSlider(e.touches[0].clientX);
-    }
-  });
-}
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          const el = entry.target;
+          const delay = parseInt(el.getAttribute('data-delay') || '0', 10);
+          setTimeout(()=> el.classList.add('in-view'), delay);
+          io.unobserve(el);
+        }
+      });
+    }, {threshold: 0.25});
 
-// Initialize sliders
-setupSlider('slider1', 'sliderBar1');
-// Add more calls if you have more sliders, e.g.:
-// setupSlider('slider2', 'sliderBar2');
+    items.forEach(el => io.observe(el));
+  })();
+</script>
+
+<script>
+(function(){
+  const serviceItems = document.querySelectorAll('.fade-service');
+
+  if (!('IntersectionObserver' in window)) {
+    serviceItems.forEach(el => el.classList.add('in-view'));
+    return;
+  }
+
+  const io2 = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        io2.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  serviceItems.forEach(el => io2.observe(el));
+})();
+
 </script>
 
 </body>
